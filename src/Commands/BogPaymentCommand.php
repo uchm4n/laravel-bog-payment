@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Jorjika\BogPayment\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class BogPaymentCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'bog-payment';
 
     public $description = 'My command';
 
