@@ -1,7 +1,7 @@
 <?php
 
-use Jorjika\BogPayment\Pay;
 use Jorjika\BogPayment\ApiClient;
+use Jorjika\BogPayment\Pay;
 
 beforeEach(function () {
     $this->apiClient = Mockery::mock(ApiClient::class);

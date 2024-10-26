@@ -2,15 +2,18 @@
 
 namespace Jorjika\BogPayment;
 
-use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Client\RequestException;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class ApiClient
 {
     private string $baseUrl;
+
     private string $clientId;
+
     private string $clientSecret;
+
     private ?string $accessToken = null;
 
     public function __construct()
@@ -65,10 +68,7 @@ class ApiClient
     /**
      * Perform a POST request to the given endpoint.
      *
-     * @param  string  $endpoint
-     * @param  array  $payload
      *
-     * @return mixed
      * @throws RequestException|\Illuminate\Http\Client\ConnectionException
      */
     public function post(string $endpoint, array $payload): mixed
@@ -91,10 +91,7 @@ class ApiClient
     /**
      * Perform a GET request to the given endpoint.
      *
-     * @param  string  $endpoint
-     * @param  array  $query
      *
-     * @return mixed
      * @throws RequestException|\Illuminate\Http\Client\ConnectionException
      */
     public function get(string $endpoint, array $query = []): mixed
@@ -119,7 +116,6 @@ class ApiClient
      *
      * @param  \Illuminate\Http\Client\Response  $response
      *
-     * @return mixed
      * @throws RequestException|\Exception
      */
     private function handleResponse($response): mixed
@@ -134,6 +130,6 @@ class ApiClient
             'body' => $response->body(),
         ]);
 
-        throw new \Exception('API request failed with Bank of Georgia.'. $response->body());
+        throw new \Exception('API request failed with Bank of Georgia.'.$response->body());
     }
 }

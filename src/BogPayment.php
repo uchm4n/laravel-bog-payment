@@ -6,14 +6,9 @@ use Jorjika\BogPayment\Contracts\PaymentGatewayInterface;
 
 class BogPayment implements PaymentGatewayInterface
 {
-    public function __construct(public readonly ApiClient $apiClient)
-    {
-    }
+    public function __construct(public readonly ApiClient $apiClient) {}
 
-    public function init()
-    {
-
-    }
+    public function init() {}
 
     public function createPayment(array $data)
     {

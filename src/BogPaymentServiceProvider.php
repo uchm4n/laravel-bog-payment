@@ -2,9 +2,9 @@
 
 namespace Jorjika\BogPayment;
 
+use Jorjika\BogPayment\Commands\BogPaymentCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Jorjika\BogPayment\Commands\BogPaymentCommand;
 
 class BogPaymentServiceProvider extends PackageServiceProvider
 {

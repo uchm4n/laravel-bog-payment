@@ -9,30 +9,35 @@ class PaymentPayloadBuilder
     public function setCallbackUrl(string $callbackUrl): self
     {
         $this->payload['callback_url'] = $callbackUrl;
+
         return $this;
     }
 
     public function setExternalOrderId(string $externalOrderId): self
     {
         $this->payload['external_order_id'] = $externalOrderId;
+
         return $this;
     }
 
     public function setCurrency(string $currency): self
     {
         $this->payload['purchase_units']['currency'] = $currency;
+
         return $this;
     }
 
     public function setTotalAmount(float $totalAmount): self
     {
         $this->payload['purchase_units']['total_amount'] = $totalAmount;
+
         return $this;
     }
 
     public function setBasket(array $basket): self
     {
         $this->payload['purchase_units']['basket'] = $basket;
+
         return $this;
     }
 
@@ -42,6 +47,7 @@ class PaymentPayloadBuilder
             'fail' => $failUrl,
             'success' => $successUrl,
         ];
+
         return $this;
     }
 

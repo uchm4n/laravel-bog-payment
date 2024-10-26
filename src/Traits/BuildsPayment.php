@@ -27,15 +27,16 @@ trait BuildsPayment
     public function orderId($externalOrderId)
     {
         $this->payload['external_order_id'] = $externalOrderId;
+
         return $this;
     }
 
     public function callbackUrl($callbackUrl)
     {
         $this->payload['callback_url'] = $callbackUrl;
+
         return $this;
     }
-
 
     public function redirectUrl($statusUrl)
     {
@@ -43,6 +44,7 @@ trait BuildsPayment
             'fail' => $statusUrl,
             'success' => $statusUrl,
         ];
+
         return $this;
     }
 
@@ -52,12 +54,13 @@ trait BuildsPayment
             'fail' => $failUrl,
             'success' => $successUrl,
         ];
+
         return $this;
     }
 
     public function amount(float $totalAmount, string $currency = 'GEL', array $basket = [])
     {
-        if (!isset($this->payload['external_order_id']) || empty($this->payload['external_order_id'])) {
+        if (! isset($this->payload['external_order_id']) || empty($this->payload['external_order_id'])) {
             throw new RuntimeException('Please set order id before setting amount.');
         }
 
@@ -67,7 +70,7 @@ trait BuildsPayment
                     'quantity' => 1,
                     'unit_price' => $totalAmount,
                     'product_id' => $this->payload['external_order_id'],
-                ]
+                ],
             ];
         }
 
@@ -76,6 +79,7 @@ trait BuildsPayment
             'total_amount' => $totalAmount,
             'basket' => $basket,
         ];
+
         return $this;
     }
 }

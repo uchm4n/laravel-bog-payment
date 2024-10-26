@@ -5,7 +5,6 @@ namespace Jorjika\BogPayment;
 use Jorjika\BogPayment\Contracts\PayInterface;
 use Jorjika\BogPayment\Traits\BuildsPayment;
 
-
 class Pay implements PayInterface
 {
     use BuildsPayment;
@@ -14,7 +13,6 @@ class Pay implements PayInterface
     {
         $this->initPayload();
     }
-
 
     public function process(): array
     {

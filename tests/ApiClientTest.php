@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Http;
 use Jorjika\BogPayment\ApiClient;
 
 beforeEach(function () {
-    $this->apiClient = new ApiClient();
+    $this->apiClient = new ApiClient;
 });
 
 it('throws an exception if authentication fails', function () {
@@ -34,7 +34,6 @@ it('sends a POST request with correct URL and token', function () {
     $recorded = Http::recorded();
 
     [$postRequest, $postResponse] = $recorded[1];
-
 
     expect($postRequest->data())->toBeArray()->toMatchArray(['amount' => 100]);
     expect($postResponse->json())->toBeArray()->toMatchArray(['status' => 'success']);
