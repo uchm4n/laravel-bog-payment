@@ -19,6 +19,7 @@ class BogPaymentServiceProvider extends PackageServiceProvider
             ->name('bog-payment')
             ->hasConfigFile()
             ->hasViews()
+            ->hasRoute('web')
             ->hasMigration('create_bog_payment_table')
             ->hasCommand(BogPaymentCommand::class);
     }

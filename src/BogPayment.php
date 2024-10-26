@@ -3,7 +3,6 @@
 namespace Jorjika\BogPayment;
 
 use Jorjika\BogPayment\Contracts\PaymentGatewayInterface;
-use Jorjika\BogPayment\Services\ApiClient;
 
 class BogPayment implements PaymentGatewayInterface
 {
@@ -11,9 +10,13 @@ class BogPayment implements PaymentGatewayInterface
     {
     }
 
+    public function init()
+    {
+
+    }
+
     public function createPayment(array $data)
     {
-        $this->apiClient;
         // Implementation to initiate payment
     }
 

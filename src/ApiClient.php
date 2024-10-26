@@ -134,6 +134,6 @@ class ApiClient
             'body' => $response->body(),
         ]);
 
-        throw new \Exception('API request failed with Bank of Georgia.');
+        throw new \Exception('API request failed with Bank of Georgia.'. $response->body());
     }
 }
