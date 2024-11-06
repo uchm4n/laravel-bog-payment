@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Nikajorjika\BogPayment\Events\TransactionStatusUpdated;
 
-
 class StatusCallbackController extends Controller
 {
     public function __invoke(Request $request)
@@ -29,8 +28,6 @@ class StatusCallbackController extends Controller
      * @param  string  $data  The data to verify.
      * @param  string  $signature  The provided signature.
      * @param  string  $publicKey  The public key to use for verification.
-     *
-     * @return bool
      */
     private function verifySignature(string $data, string $signature, string $publicKey): bool
     {
@@ -47,7 +44,7 @@ class StatusCallbackController extends Controller
      */
     private function ensureSignatureIsValid($body, $signature, $publicKey)
     {
-        if (!$this->verifySignature($body, $signature, $publicKey)) {
+        if (! $this->verifySignature($body, $signature, $publicKey)) {
             throw new HttpException('Invalid Signature', 401);
         }
 

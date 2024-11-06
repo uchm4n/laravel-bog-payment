@@ -2,8 +2,8 @@
 
 namespace Nikajorjika\BogPayment\Events;
 
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
 class TransactionStatusUpdated
 {

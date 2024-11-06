@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use Jorjika\BogPayment\Http\Controllers\StatusCallbackController;
 
