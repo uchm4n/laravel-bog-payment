@@ -11,7 +11,7 @@ trait BuildsPayment
     public function initPayload($data = null): void
     {
         $this->payload = $data ?? [
-            'callback_url' => !empty(config('bog-payment.callback_url')) ? config('bog-payment.callback_url') : route('bog-payment.callback'),
+            'callback_url' => ! empty(config('bog-payment.callback_url')) ? config('bog-payment.callback_url') : route('bog-payment.callback'),
             'redirect_urls' => config('bog-payment.redirect_urls'),
             'purchase_units' => [
                 'currency' => 'GEL',
@@ -60,7 +60,7 @@ trait BuildsPayment
 
     public function amount(float $totalAmount, string $currency = 'GEL', array $basket = [])
     {
-        if (!isset($this->payload['external_order_id']) || empty($this->payload['external_order_id'])) {
+        if (! isset($this->payload['external_order_id']) || empty($this->payload['external_order_id'])) {
             throw new RuntimeException('Please set order id before setting amount.');
         }
 
