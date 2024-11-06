@@ -22,6 +22,7 @@ class Pay implements PayInterface
         $response = $this->apiClient->post('/ecommerce/orders', $this->payload);
 
         $this->resetPayload();
+
         return [
             'id' => $response['id'],
             'redirect_url' => $response['_links']['redirect']['href'],
