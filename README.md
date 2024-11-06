@@ -186,6 +186,20 @@ protected $listen = [
 This setup allows your application to handle transaction status updates efficiently, enabling you to respond to each status change in real time.
 
 
+## Handling Transaction Status
+
+The package provides a convenient way to retrieve the status of a transaction using the `Transaction` Facade's `get()` method. This method sends a GET request to the Bank of Georgia payment API to retrieve the transaction status.
+
+Here's how you can use it:
+
+```php
+use Jorjika\BogPayment\Facades\Transaction;
+
+$transactionDetails = Transaction::get($order_id); // Returns array of transaction details
+```
+
+See example of the response [Official Documentation](https://api.bog.ge/docs/payments/standard-process/get-payment-details)
+
 
 ## Testing
 

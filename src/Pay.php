@@ -2,10 +2,10 @@
 
 namespace Jorjika\BogPayment;
 
-use Jorjika\BogPayment\Contracts\PayInterface;
+use Jorjika\BogPayment\Contracts\PayContract;
 use Jorjika\BogPayment\Traits\BuildsPayment;
 
-class Pay implements PayInterface
+class Pay implements PayContract
 {
     use BuildsPayment;
 
