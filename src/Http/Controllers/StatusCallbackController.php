@@ -12,12 +12,13 @@ class StatusCallbackController extends Controller
     public function __invoke(Request $request)
     {
         $requestBody = $request->getContent();
+
         $signature = $request->header('Callback-Signature');
         $publicKey = config('services.bog.public_key');
 
         $this->ensureSignatureIsValid($requestBody, $signature, $publicKey);
 
-        event(TransactionStatusUpdated::class, json_decode($requestBody, true)['body']);
+        event(TransactionStatusUpdated::class, [json_decode($requestBody, true)['body']]);
 
         return json_decode($requestBody, true)['body'];
     }
