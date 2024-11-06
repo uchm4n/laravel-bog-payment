@@ -2,6 +2,4 @@
 
 namespace Jorjika\BogPayment\Contracts;
 
-interface TransactionContract
-{
-}
+interface TransactionContract {}

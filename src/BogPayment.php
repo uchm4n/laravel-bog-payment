@@ -2,7 +2,4 @@
 
 namespace Jorjika\BogPayment;
 
-class BogPayment
-{
-
-}
+class BogPayment {}
