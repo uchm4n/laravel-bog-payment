@@ -8,10 +8,10 @@ The BOG Payment package provides seamless integration with the Bank of Georgia's
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/nikajorjika/bog-payment/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/nikajorjika/bog-payment/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/nikajorjika/bog-payment.svg?style=flat-square)](https://packagist.org/packages/nikajorjika/bog-payment)
 
-Features
-Payment Processing: Initiate and manage transactions through the Bank of Georgia.
-Transaction Status: Retrieve and handle the status of payments.
-Secure Communication: Ensure secure data transmission with the payment gateway.
+### Features
+- Payment Processing: Initiate and manage transactions through the Bank of Georgia.
+- Transaction Status: Retrieve and handle the status of payments.
+- Secure Communication: Ensure secure data transmission with the payment gateway.
 
 ## Installation
 
