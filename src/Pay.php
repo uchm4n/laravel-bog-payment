@@ -14,13 +14,14 @@ class Pay implements PayInterface
     public function __construct(ApiClient $apiClient)
     {
         $this->apiClient = $apiClient;
-        $this->initPayload();
+        $this->resetPayload();
     }
 
     public function process(): array
     {
         $response = $this->apiClient->post('/ecommerce/orders', $this->payload);
 
+        $this->resetPayload();
         return [
             'id' => $response['id'],
             'redirect_url' => $response['_links']['redirect']['href'],

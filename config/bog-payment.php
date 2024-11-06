@@ -22,7 +22,7 @@ return [
     | appropriately to update your payment records.
     |
     */
-    'callback_url' => env('BOG_CALLBACK_URL', ''),
+    'callback_url' => env('BOG_CALLBACK_URL'),
 
     /*
     |--------------------------------------------------------------------------

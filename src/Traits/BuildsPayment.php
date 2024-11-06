@@ -8,7 +8,7 @@ trait BuildsPayment
 {
     protected array $payload;
 
-    public function initPayload($data = null): void
+    public function resetPayload($data = null): void
     {
         $this->payload = $data ?? [
             'callback_url' => ! empty(config('bog-payment.callback_url')) ? config('bog-payment.callback_url') : route('bog-payment.callback'),
