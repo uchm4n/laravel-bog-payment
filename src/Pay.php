@@ -9,8 +9,11 @@ class Pay implements PayInterface
 {
     use BuildsPayment;
 
-    public function __construct(public readonly ApiClient $apiClient)
+    public ApiClient $apiClient;
+
+    public function __construct(ApiClient $apiClient)
     {
+        $this->apiClient = $apiClient;
         $this->initPayload();
     }
 
