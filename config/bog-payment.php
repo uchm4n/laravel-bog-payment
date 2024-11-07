@@ -80,5 +80,5 @@ return [
     | Here you can see the latest public key: https://api.bog.ge/docs/payments/standard-process/callback
     |
     */
-    'public_key' => env('BOG_PUBLIC_KEY')
+    'public_key' => env('BOG_PUBLIC_KEY'),
 ];
