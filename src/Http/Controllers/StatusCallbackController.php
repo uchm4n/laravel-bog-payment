@@ -14,7 +14,7 @@ class StatusCallbackController extends Controller
         $requestBody = $request->getContent();
 
         $signature = $request->header('Callback-Signature');
-        $publicKey = config('services.bog.public_key');
+        $publicKey = config('bog-payment.public_key');
 
         $this->ensureSignatureIsValid($requestBody, $signature, $publicKey);
 

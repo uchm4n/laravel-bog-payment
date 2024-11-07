@@ -68,4 +68,17 @@ return [
     |
     */
     'base_url' => env('BOG_BASE_URL', 'https://api.bog.ge/payments/v1'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | BOG Public Key
+    |--------------------------------------------------------------------------
+    |
+    | This public key is used to verify the signature of the callback requests
+    | sent by the Bank of Georgia payment gateway. Make sure to keep this key
+    | up to date in your environment file.
+    | Here you can see the latest public key: https://api.bog.ge/docs/payments/standard-process/callback
+    |
+    */
+    'public_key' => env('BOG_PUBLIC_KEY')
 ];
