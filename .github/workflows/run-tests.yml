@@ -8,7 +8,13 @@ on:
       - 'phpunit.xml.dist'
       - 'composer.json'
       - 'composer.lock'
-
+env:
+  BOG_CALLBACK_URL: https://localhost/bog-payment/payment/callback
+  BOG_REDIRECT_SUCCESS: https://localhost/tranasction/success/page
+  BOG_REDIRECT_FAIL: https://localhost/tranasction/fail/page
+  BOG_SECRET: 123456123456123456123456123456123456
+  BOG_CLIENT_ID: 1234
+  BOG_PUBLIC_KEY: ""
 jobs:
   test:
     runs-on: ${{ matrix.os }}
@@ -21,9 +27,6 @@ jobs:
         laravel: [ 10.* ]
         stability: [ prefer-lowest, prefer-stable ]
         include:
-          #          - laravel: 11.*
-          #            testbench: 9.*
-          #            carbon: ^2.63
           - laravel: 10.*
             testbench: 8.*
             carbon: ^2.63
