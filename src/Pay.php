@@ -21,6 +21,10 @@ class Pay implements PayContract
     {
         $response = $this->apiClient->post('/ecommerce/orders', $this->payload);
 
+        if ($this->saveCard) {
+            $this->registerCard($response['id']);
+        }
+
         $this->resetPayload();
 
         return [
@@ -28,5 +32,10 @@ class Pay implements PayContract
             'redirect_url' => $response['_links']['redirect']['href'],
             'details_url' => $response['_links']['details']['href'],
         ];
+    }
+
+    private function registerCard(mixed $id)
+    {
+        $this->apiClient->put("/orders/{$id}/cards");
     }
 }

@@ -7,9 +7,11 @@ use RuntimeException;
 trait BuildsPayment
 {
     protected array $payload;
+    protected bool $saveCard = false;
 
     public function resetPayload($data = null): void
     {
+        $this->saveCard = false;
         $this->payload = $data ?? [
             'callback_url' => ! empty(config('bog-payment.callback_url')) ? config('bog-payment.callback_url') : secure_url(route('bog-payment.callback', [], false)),
             'redirect_urls' => config('bog-payment.redirect_urls'),
@@ -22,6 +24,13 @@ trait BuildsPayment
     public function getPayload()
     {
         return $this->payload;
+    }
+
+    public function saveCard()
+    {
+        $this->saveCard = true;
+
+        return $this;
     }
 
     public function orderId($externalOrderId)
