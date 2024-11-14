@@ -7,6 +7,7 @@ use RuntimeException;
 trait BuildsPayment
 {
     protected array $payload;
+
     protected bool $saveCard = false;
 
     public function resetPayload($data = null): void
