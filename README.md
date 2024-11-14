@@ -127,6 +127,20 @@ $paymentDetails = Pay::orderId($transaction->id)
             ->amount($data['total_amount'])
             ->process();
 ```
+`process()` will return an array of payment details as an associative array.
+
+here's an example of the response:
+```php
+$paymentDetails = [
+    'id' => 'test-id',
+    'redirect_url' => 'https://example.com/redirect',
+    'details_url' => 'https://example.com/details',
+]
+```
+**Recommended**: At this stage, create a transaction record and store the returned payment details in your database.
+
+Once you’ve saved the payment information, redirect the user to the `redirect_url` provided in the response. This URL will direct the user to the payment gateway where they can complete the transaction. After successful payment processing, the user will be redirected back to the redirect_url specified in your request.
+
 
 ## Building the payload
 
