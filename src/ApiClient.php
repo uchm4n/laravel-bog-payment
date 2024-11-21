@@ -97,11 +97,11 @@ class ApiClient
      */
     public function __call($name, $arguments)
     {
-        if (! in_array($name, ['get', 'post', 'put', 'delete'])) {
+        if (!in_array($name, ['get', 'post', 'put', 'delete'])) {
             throw new Exception('Method not allowed');
         }
-
-        [$endpoint, $payload] = $arguments;
+        $endpoint = $arguments[0];
+        $payload = $arguments[1] ?? [];
 
         $this->ensureServiceIsAuthenticated();
 
