@@ -8,6 +8,12 @@ use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * @method mixed get($endpoint, $payload = [])
+ * @method mixed put($endpoint, $payload = [])
+ * @method mixed post($endpoint, $payload = [])
+ * @method mixed delete($endpoint, $payload = [])
+ */
 class ApiClient
 {
     private string $baseUrl;
