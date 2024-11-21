@@ -119,6 +119,7 @@ return [
 
 ## Usage
 
+### Simple Payment Processing
 ```php
 use Jorjika\BogPayment\Facades\Pay;
 // ...
@@ -141,6 +142,42 @@ $paymentDetails = [
 
 Once you’ve saved the payment information, redirect the user to the `redirect_url` provided in the response. This URL will direct the user to the payment gateway where they can complete the transaction. After successful payment processing, the user will be redirected back to the redirect_url specified in your request.
 
+### Save Card During Payment
+
+To save the card during the payment process, you can use the `saveCard()` method. This method will save the card details for future transactions.
+
+When you want to save card during the payment, you need to do the following:
+
+```php
+use Jorjika\BogPayment\Facades\Pay;
+
+// SaveCard method will initiate another request that notifies bank to save card details
+$response = Pay::orderId($external_order_id)->amount($amount)->saveCard()->process();
+
+// Example response
+$response = [
+    'id' => 'test-id',
+    'redirect_url' => 'https://example.com/redirect',
+    'details_url' => 'https://example.com/details',
+];
+```
+When you receive the response, you can save the card details in your database, where `id` is the saved card(parent transaction) id that you would use for later transactions.
+
+### Payment with Saved Card
+Once you have saved new payment method id in your database, you can initiate payments on saved cards like so:
+
+```php
+$response = Pay::orderId($external_order_id)->amount($amount)->chargeCard("test-id");
+
+// Example response
+$response = [
+    'id' => 'test-id',
+    'redirect_url' => 'https://example.com/redirect',
+    'details_url' => 'https://example.com/details',
+];
+```
+Functionality above will charge saved card without the user interaction.
+
 
 ## Building the payload
 
@@ -149,7 +186,6 @@ Although the package provides a convenient way to initiate payments, you can als
 The BuildsPayment trait helps you build the payload for payments quickly by providing the following methods
 
 Here's how you do it:
-
 
 ```php
 

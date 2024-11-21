@@ -63,7 +63,7 @@ it('throws exception if payment method id is not provided', function () {
 
     $this->expectException(Exception::class);
 
-    $this->pay->chargePaymentMethod(null);
+    $this->pay->chargeCard(null);
 });
 
 it('charges payment method with given payment method id', function () {
@@ -81,7 +81,7 @@ it('charges payment method with given payment method id', function () {
         ->with('/ecommerce/orders/test-id', $this->pay->getPayload())
         ->andReturn($mockResponse);
 
-    $response = $this->pay->chargePaymentMethod('test-id');
+    $response = $this->pay->chargeCard('test-id');
 
     expect($response)->toHaveKey('id', 'test-id');
 });

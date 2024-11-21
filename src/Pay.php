@@ -40,7 +40,7 @@ class Pay implements PayContract
      *
      * @throws Exception
      */
-    public function chargePaymentMethod($paymentMethodId): array
+    public function chargeCard($paymentMethodId): array
     {
         if (! $paymentMethodId) {
             throw new Exception('Payment method id is required');
