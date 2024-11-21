@@ -85,7 +85,3 @@ it('charges payment method with given payment method id', function () {
 
     expect($response)->toHaveKey('id', 'test-id');
 });
-
-
-
-

@@ -97,7 +97,7 @@ class ApiClient
      */
     public function __call($name, $arguments)
     {
-        if (!in_array($name, ['get', 'post', 'put', 'delete'])) {
+        if (! in_array($name, ['get', 'post', 'put', 'delete'])) {
             throw new Exception('Method not allowed');
         }
         $endpoint = $arguments[0];
