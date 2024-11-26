@@ -167,7 +167,9 @@ When you receive the response, you can save the card details in your database, w
 Once you have saved new payment method id in your database, you can initiate payments on saved cards like so:
 
 ```php
-$response = Pay::orderId($external_order_id)->amount($amount)->chargeCard("test-id");
+use Jorjika\BogPayment\Facades\Card;
+
+$response = Card::orderId($external_order_id)->amount($amount)->charge("test-id");
 
 // Example response
 $response = [
