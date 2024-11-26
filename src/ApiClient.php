@@ -2,10 +2,18 @@
 
 namespace Jorjika\BogPayment;
 
+use Exception;
 use Illuminate\Http\Client\RequestException;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * @method mixed get($endpoint, $payload = [])
+ * @method mixed put($endpoint, $payload = [])
+ * @method mixed post($endpoint, $payload = [])
+ * @method mixed delete($endpoint, $payload = [])
+ */
 class ApiClient
 {
     private string $baseUrl;
@@ -47,9 +55,9 @@ class ApiClient
                     'body' => $response->body(),
                 ]);
 
-                throw new \Exception('Authentication failed with Bank of Georgia.');
+                throw new Exception('Authentication failed with Bank of Georgia.');
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             Log::error('Authentication Exception: '.$e->getMessage());
             throw $e;
         }
@@ -66,57 +74,11 @@ class ApiClient
     }
 
     /**
-     * Perform a POST request to the given endpoint.
-     *
-     *
-     * @throws RequestException|\Illuminate\Http\Client\ConnectionException
-     */
-    public function post(string $endpoint, array $payload): mixed
-    {
-        $this->ensureServiceIsAuthenticated();
-
-        try {
-            $url = $this->baseUrl.$endpoint;  // Using base URL for all post requests
-
-            $response = Http::withToken($this->accessToken)
-                ->post($url, $payload);
-
-            return $this->handleResponse($response);
-        } catch (\Exception $e) {
-            Log::error('POST Request Exception: '.$e->getMessage());
-            throw $e;
-        }
-    }
-
-    /**
-     * Perform a GET request to the given endpoint.
-     *
-     *
-     * @throws RequestException|\Illuminate\Http\Client\ConnectionException
-     */
-    public function get(string $endpoint, array $query = []): mixed
-    {
-        $this->ensureServiceIsAuthenticated();
-
-        try {
-            $url = $this->baseUrl.$endpoint;
-
-            $response = Http::withToken($this->accessToken)
-                ->get($url, $query);
-
-            return $this->handleResponse($response);
-        } catch (\Exception $e) {
-            Log::error('GET Request Exception: '.$e->getMessage());
-            throw $e;
-        }
-    }
-
-    /**
      * Handle the response from the HTTP client.
      *
-     * @param  \Illuminate\Http\Client\Response  $response
+     * @param  Response  $response
      *
-     * @throws RequestException|\Exception
+     * @throws RequestException|Exception
      */
     private function handleResponse($response): mixed
     {
@@ -130,6 +92,35 @@ class ApiClient
             'body' => $response->body(),
         ]);
 
-        throw new \Exception('API request failed with Bank of Georgia.'.$response->body());
+        throw new Exception('API request failed with Bank of Georgia.'.$response->body());
+    }
+
+    /**
+     * Handle dynamic method calls to the client.
+     *
+     * @throws RequestException
+     * @throws Exception
+     */
+    public function __call($name, $arguments)
+    {
+        if (! in_array($name, ['get', 'post', 'put', 'delete'])) {
+            throw new Exception('Method not allowed');
+        }
+        $endpoint = $arguments[0];
+        $payload = $arguments[1] ?? [];
+
+        $this->ensureServiceIsAuthenticated();
+
+        try {
+            $url = $this->baseUrl.$endpoint;
+
+            $response = Http::withToken($this->accessToken)
+                ->{$name}($url, $payload);
+
+            return $this->handleResponse($response);
+        } catch (Exception $e) {
+            Log::error('GET Request Exception: '.$e->getMessage());
+            throw $e;
+        }
     }
 }
