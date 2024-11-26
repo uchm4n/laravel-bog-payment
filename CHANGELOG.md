@@ -2,6 +2,18 @@
 
 All notable changes to `bog-payment` will be documented in this file.
 
+## v1.0.3 - 2024-11-26
+
+### What's Changed
+
+* Feat/add save card functionality by @nikajorjika in https://github.com/nikajorjika/bog-payment/pull/1
+
+### New Contributors
+
+* @nikajorjika made their first contribution in https://github.com/nikajorjika/bog-payment/pull/1
+
+**Full Changelog**: https://github.com/nikajorjika/bog-payment/compare/v1.0.2...v1.0.3
+
 ## v1.0.2 - 2024-11-07
 
 ### FIx:
