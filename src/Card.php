@@ -13,7 +13,7 @@ class Card extends Payment
      */
     public function charge($paymentMethodId): array
     {
-        if (!$paymentMethodId) {
+        if (! $paymentMethodId) {
             throw new Exception('Payment method id is required');
         }
 

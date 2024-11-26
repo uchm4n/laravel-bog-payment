@@ -1,7 +1,6 @@
 <?php
 
 use Jorjika\BogPayment\ApiClient;
-use Jorjika\BogPayment\Card;
 use Jorjika\BogPayment\Pay;
 
 beforeEach(function () {

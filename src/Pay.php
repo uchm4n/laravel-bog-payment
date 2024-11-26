@@ -2,7 +2,6 @@
 
 namespace Jorjika\BogPayment;
 
-use Exception;
 use Jorjika\BogPayment\Contracts\PayContract;
 
 class Pay extends Payment implements PayContract
