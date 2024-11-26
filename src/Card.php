@@ -11,13 +11,13 @@ class Card extends Payment
      *
      * @throws Exception
      */
-    public function charge($paymentMethodId): array
+    public function charge($parentTransactionId): array
     {
-        if (! $paymentMethodId) {
+        if (! $parentTransactionId) {
             throw new Exception('Payment method id is required');
         }
 
-        $response = $this->apiClient->post("/ecommerce/orders/$paymentMethodId", $this->payload);
+        $response = $this->apiClient->post("/ecommerce/orders/$parentTransactionId", $this->payload);
 
         $this->resetPayload();
 
