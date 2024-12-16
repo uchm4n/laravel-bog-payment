@@ -2,6 +2,14 @@
 
 All notable changes to `bog-payment` will be documented in this file.
 
+## v1.0.6 - 2024-12-16
+
+### What's Changed
+
+* Feat/add buyer info by @nikajorjika in https://github.com/nikajorjika/bog-payment/pull/5
+
+**Full Changelog**: https://github.com/nikajorjika/bog-payment/compare/v1.0.5...v1.0.6
+
 ## v1.0.5 - 2024-12-07
 
 ### What's Changed
