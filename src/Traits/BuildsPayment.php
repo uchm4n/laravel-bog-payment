@@ -69,31 +69,6 @@ trait BuildsPayment
         return $this;
     }
 
-    public function amount(float $totalAmount, string $currency = 'GEL', array $basket = []): static
-    {
-        if (!isset($this->payload['external_order_id']) || empty($this->payload['external_order_id'])) {
-            throw new RuntimeException('Please set order id before setting amount.');
-        }
-
-        if (empty($basket)) {
-            $basket = [
-                [
-                    'quantity' => 1,
-                    'unit_price' => $totalAmount,
-                    'product_id' => $this->payload['external_order_id'],
-                ],
-            ];
-        }
-
-        $this->payload['purchase_units'] = [
-            'currency' => $currency,
-            'total_amount' => $totalAmount,
-            'basket' => $basket,
-        ];
-
-        return $this;
-    }
-
     public function buyer(array $buyer): static
     {
         $this->payload['buyer'] = $buyer;
@@ -133,4 +108,31 @@ trait BuildsPayment
 
         return $this;
     }
+
+    public function amount(float $totalAmount, string $currency = 'GEL', array $basket = []): static
+    {
+        if (!isset($this->payload['external_order_id']) || empty($this->payload['external_order_id'])) {
+            throw new RuntimeException('Please set order id before setting amount.');
+        }
+
+        if (empty($basket)) {
+            $basket = [
+                [
+                    'quantity' => 1,
+                    'unit_price' => $totalAmount,
+                    'product_id' => $this->payload['external_order_id'],
+                ],
+            ];
+        }
+
+        $this->payload['purchase_units'] = [
+            'currency' => $currency,
+            'total_amount' => $totalAmount,
+            'basket' => $basket,
+        ];
+
+        return $this;
+    }
+
+
 }
