@@ -70,3 +70,49 @@ it('can set custom basket array', function () {
         ],
     ]);
 });
+
+it('can set custom buyer array', function () {
+    $buyer = [
+        'full_name' => 'John Doe',
+        'masked_email' => 'john**@gmail.com',
+        'masked_phone' => '59512**10',
+    ];
+
+    $this->pay->buyer($buyer);
+
+    expect($this->pay->getPayload())->toMatchArray([
+        'callback_url' => config('bog-payment.callback_url'),
+        'redirect_urls' => config('bog-payment.redirect_urls'),
+        'buyer' => $buyer,
+    ]);
+});
+
+it('can set custom buyer full_name directly', function () {
+    $this->pay->buyerName('John Doe');
+
+    expect($this->pay->getPayload())->toMatchArray([
+        'callback_url' => config('bog-payment.callback_url'),
+        'redirect_urls' => config('bog-payment.redirect_urls'),
+        'buyer' => ['full_name' => 'John Doe'],
+    ]);
+});
+it('can set custom buyer masked email directly', function () {
+    $this->pay->buyerEmail('john******ail.com');
+
+    expect($this->pay->getPayload())->toMatchArray([
+        'callback_url' => config('bog-payment.callback_url'),
+        'redirect_urls' => config('bog-payment.redirect_urls'),
+        'buyer' => ['masked_email' => 'john******ail.com'],
+    ]);
+});
+
+it('can set custom buyer masked phone directly', function () {
+    $this->pay->buyerPhone('+995 555 *** 555');
+
+    expect($this->pay->getPayload())->toMatchArray([
+        'callback_url' => config('bog-payment.callback_url'),
+        'redirect_urls' => config('bog-payment.redirect_urls'),
+        'buyer' => ['masked_phone' => '+995 555 *** 555'],
+    ]);
+});
+
