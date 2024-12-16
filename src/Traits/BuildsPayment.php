@@ -14,7 +14,7 @@ trait BuildsPayment
     {
         $this->saveCard = false;
         $this->payload = $data ?? [
-            'callback_url' => !empty(config('bog-payment.callback_url')) ? config('bog-payment.callback_url') : secure_url(route('bog-payment.callback',
+            'callback_url' => ! empty(config('bog-payment.callback_url')) ? config('bog-payment.callback_url') : secure_url(route('bog-payment.callback',
                 [], false)),
             'redirect_urls' => config('bog-payment.redirect_urls'),
             'purchase_units' => [
@@ -78,7 +78,7 @@ trait BuildsPayment
 
     public function buyerName(string $fullName): static
     {
-        if (!isset($this->payload['buyer']) || !is_array($this->payload['buyer'])) {
+        if (! isset($this->payload['buyer']) || ! is_array($this->payload['buyer'])) {
             $this->payload['buyer'] = [];
         }
 
@@ -89,7 +89,7 @@ trait BuildsPayment
 
     public function buyerEmail(string $maskedEmail): static
     {
-        if (!isset($this->payload['buyer']) || !is_array($this->payload['buyer'])) {
+        if (! isset($this->payload['buyer']) || ! is_array($this->payload['buyer'])) {
             $this->payload['buyer'] = [];
         }
 
@@ -100,7 +100,7 @@ trait BuildsPayment
 
     public function buyerPhone(string $maskedPhone): static
     {
-        if (!isset($this->payload['buyer']) || !is_array($this->payload['buyer'])) {
+        if (! isset($this->payload['buyer']) || ! is_array($this->payload['buyer'])) {
             $this->payload['buyer'] = [];
         }
 
@@ -111,7 +111,7 @@ trait BuildsPayment
 
     public function amount(float $totalAmount, string $currency = 'GEL', array $basket = []): static
     {
-        if (!isset($this->payload['external_order_id']) || empty($this->payload['external_order_id'])) {
+        if (! isset($this->payload['external_order_id']) || empty($this->payload['external_order_id'])) {
             throw new RuntimeException('Please set order id before setting amount.');
         }
 
@@ -133,6 +133,4 @@ trait BuildsPayment
 
         return $this;
     }
-
-
 }

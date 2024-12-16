@@ -115,4 +115,3 @@ it('can set custom buyer masked phone directly', function () {
         'buyer' => ['masked_phone' => '+995 555 *** 555'],
     ]);
 });
-
