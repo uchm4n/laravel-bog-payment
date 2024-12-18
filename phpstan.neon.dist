@@ -3,6 +3,9 @@ includes:
 
 parameters:
     level: 5
+    parameters:
+        excludes_analyse:
+            - config/*.php
     paths:
         - src
         - config
