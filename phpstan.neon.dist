@@ -3,11 +3,8 @@ includes:
 
 parameters:
     level: 5
-    excludes_analyse:
-        - config/*.php
     paths:
         - src
-        - config
         - database
     tmpDir: build/phpstan
     checkOctaneCompatibility: true
