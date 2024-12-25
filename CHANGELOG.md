@@ -2,6 +2,15 @@
 
 All notable changes to `bog-payment` will be documented in this file.
 
+## v1.0.7 - 2024-12-25
+
+### What's Changed
+
+* Change illuminate/contracts Version by @jshar in https://github.com/nikajorjika/laravel-bog-payment/pull/7
+* Feat/dependency support by @nikajorjika in https://github.com/nikajorjika/laravel-bog-payment/pull/8
+
+**Full Changelog**: https://github.com/nikajorjika/laravel-bog-payment/compare/v1.0.6...v1.0.7
+
 ## v1.0.6 - 2024-12-16
 
 ### What's Changed
