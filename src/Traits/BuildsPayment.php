@@ -8,7 +8,6 @@ trait BuildsPayment
 {
     protected array $payload;
 
-
     public function resetPayload($data = null): void
     {
         $this->payload = $data ?? [

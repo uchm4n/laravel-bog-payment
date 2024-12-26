@@ -26,7 +26,7 @@ trait HandlesCard
      */
     public function chargeCard($parentTransactionId): array
     {
-        if (!$parentTransactionId) {
+        if (! $parentTransactionId) {
             throw new Exception('Payment method id is required');
         }
 

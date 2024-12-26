@@ -31,5 +31,5 @@ it('registers new subscription for automatic payment', function () {
     expect($response)
         ->toHaveKey('id', 'test-id')
         ->toHaveKey('redirect_url', 'https://example.com/redirect')
-        ->toHaveKey('details_url', 'https://example.com/details');;
+        ->toHaveKey('details_url', 'https://example.com/details');
 });
