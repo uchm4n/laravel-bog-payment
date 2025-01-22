@@ -8,6 +8,9 @@ The BOG Payment package provides seamless integration with the Bank of Georgia's
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/nikajorjika/bog-payment/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/nikajorjika/bog-payment/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/nikajorjika/bog-payment.svg?style=flat-square)](https://packagist.org/packages/nikajorjika/bog-payment)
 
+### Demo
+You can find a demo project [here](https://github.com/nikajorjika/bog-payment-demo)
+
 ### Features
 - Payment Processing: Initiate and manage transactions through the Bank of Georgia.
 - Transaction Status: Retrieve and handle the status of payments.
@@ -27,108 +30,54 @@ You can publish the config file with:
 php artisan vendor:publish --tag="bog-payment-config"
 ```
 
-This is the contents of the published config file:
-
-```php
-<?php
-
-/*
-|--------------------------------------------------------------------------
-| BOG Payment Configuration
-|--------------------------------------------------------------------------
-|
-| This file is for setting up the Bank of Georgia payment gateway integration.
-| You can define your callback URLs, API credentials, and other necessary
-| settings here. Make sure to update these values in your environment file.
-|
-*/
-
-return [
-    /*
-    |--------------------------------------------------------------------------
-    | Callback URL
-    |--------------------------------------------------------------------------
-    |
-    | This URL is used by BOG to send payment notifications to your application.
-    | Make sure this endpoint is accessible publicly and handles the callback
-    | appropriately to update your payment records.
-    |
-    */
-    'callback_url' => env('BOG_CALLBACK_URL'),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Redirect URLs
-    |--------------------------------------------------------------------------
-    |
-    | After the payment process, users will be redirected to these URLs depending
-    | on whether the payment was successful or failed. Set these URLs to ensure
-    | a smooth user experience.
-    |
-    */
-    'redirect_urls' => [
-        /*
-        | URL to redirect to on successful payment
-        */
-        'success' => env('BOG_REDIRECT_SUCCESS'),
-
-        /*
-        | URL to redirect to on failed payment
-        */
-        'fail' => env('BOG_REDIRECT_FAIL'),
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | BOG API Credentials
-    |--------------------------------------------------------------------------
-    |
-    | These credentials are used to authenticate your application with the
-    | Bank of Georgia payment API. Make sure to keep these values secure.
-    |
-    */
-    'client_id' => env('BOG_CLIENT_ID', ''),
-    'secret' => env('BOG_SECRET', ''),
-
-    /*
-    |--------------------------------------------------------------------------
-    | BOG Payment API Base URL
-    |--------------------------------------------------------------------------
-    |
-    | The base URL for accessing the Bank of Georgia payment API. You can set
-    | this to the test or live endpoint depending on your environment.
-    |
-    */
-    'base_url' => env('BOG_BASE_URL', 'https://api.bog.ge/payments/v1'),
-    
-    /*
-    |--------------------------------------------------------------------------
-    | BOG Public Key
-    |--------------------------------------------------------------------------
-    |
-    | This public key is used to verify the signature of the callback requests
-    | sent by the Bank of Georgia payment gateway. Make sure to keep this key
-    | up to date in your environment file.
-    | Here you can see the latest public key: https://api.bog.ge/docs/payments/standard-process/callback
-    |
-    */
-    'public_key' => env('BOG_PUBLIC_KEY')
-];
-
+Once published, the configuration file will be available at:
+```bash
+config/bog-payment.php
 ```
+
+## Environment Variables
+Add the following variables to your `.env` file to configure the package:
+
+```dotenv
+BOG_SECRET=[your_client_secret]
+BOG_CLIENT_ID=[your_client_id]
+BOG_PUBLIC_KEY=[your_public_key] # Can be found at https://api.bog.ge/docs/payments/standard-process/callback
+```
+
+You can find up to date `BOG_PUBLIC_KEY` in the Bank of Georgia's [API documentation](https://api.bog.ge/docs/payments/standard-process/callback).
+
+You can also configure additional environment variables as needed. But this is the minimum that you need to implement.
 
 ## Usage
 
-### Simple Payment Processing
+### Usage Example: Simple Payment Processing
+To initiate a payment, use the `Pay` facade to set the order details and process the transaction:
+
 ```php
 use Jorjika\BogPayment\Facades\Pay;
-// ...
+use App\Models\Transaction;
+
+// Step 1: Create a transaction record
+$transaction = Transaction::create([
+    'user_id'    => auth()->id(),
+    'amount'     => $data['total_amount'],
+    'status'     => 'pending', // Initial status
+]);
+
+// Step 2: Process the payment
 $paymentDetails = Pay::orderId($transaction->id)
-            ->redirectUrl(route('bog.v1.transaction.status', ['transaction_id' => $transaction->id]))
-            ->amount($data['total_amount'])
-            ->process();
+    ->redirectUrl(route('bog.v1.transaction.status', ['transaction_id' => $transaction->id]))
+    ->amount($transaction->amount)
+    ->process();
+
+// Step 3: Update the transaction with payment details
+$transaction->update([
+    'transaction_id'   => $paymentDetails['id'],
+]);
+
+// Step 4: Redirect user to the payment gateway
+return redirect($paymentDetails['redirect_url']);
 ```
-`process()` will return an array of payment details as an associative array.
 
 here's an example of the response:
 ```php
@@ -138,9 +87,6 @@ $paymentDetails = [
     'details_url' => 'https://example.com/details',
 ]
 ```
-**Recommended**: At this stage, create a transaction record and store the returned payment details in your database.
-
-Once you’ve saved the payment information, redirect the user to the `redirect_url` provided in the response. This URL will direct the user to the payment gateway where they can complete the transaction. After successful payment processing, the user will be redirected back to the redirect_url specified in your request.
 
 ### Save Card During Payment
 
@@ -272,18 +218,20 @@ use InteractsWithQueue;
     }
 ```
 ### Setting Up the Event Listener
+Setting Up the Event Listener
+To handle transaction status updates efficiently, you need to register an event listener that listens for the TransactionStatusUpdated event triggered by the package.
 
-Register the event listener in your EventServiceProvider to ensure it's triggered when the TransactionStatusUpdated event is fired:
+1. Generating the Listener Automatically
+   You can generate the event listener using the Artisan command:
+    ```bash
+    php artisan make:listener HandleTransactionStatusUpdate --event=\Nikajorjika\BogPayment\Events\TransactionStatusUpdated
+    ```
+    This command will create a listener class at `app/Listeners/HandleTransactionStatusUpdate.php`, which you can customize to handle the event logic.
 
-```php
-protected $listen = [
-    \Nikajorjika\BogPayment\Events\TransactionStatusUpdated::class => [
-        \App\Listeners\HandleTransactionStatusUpdate::class,
-    ],
-];
-```
-This setup allows your application to handle transaction status updates efficiently, enabling you to respond to each status change in real time.
+This approach provides flexibility by allowing dynamic event registrations at runtime without modifying the EventServiceProvider. 
 
+For more details on event handling in Laravel, refer to the official [documentation](https://laravel.com/docs/11.x/events#event-discovery).
+   
 
 ## Handling Transaction Status
 
@@ -309,10 +257,6 @@ composer test
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Security Vulnerabilities
 
