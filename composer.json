@@ -1,17 +1,17 @@
 {
-    "name": "nikajorjika/bog-payment",
+    "name": "redberryproducts/laravel-bog-payment",
     "description": "This is my package bog-payment",
     "keywords": [
-        "Jorjika",
+        "redberryproducts",
         "laravel",
         "bog-payment"
     ],
-    "homepage": "https://github.com/nikajorjika/bog-payment",
+    "homepage": "https://github.com/RedberryProducts/laravel-bog-payment",
     "license": "MIT",
     "authors": [
         {
             "name": "Nika Jorjoliani",
-            "email": "nikajorjika1993@gmail.com",
+            "email": "nika@redberry.ge",
             "role": "Developer"
         }
     ],
