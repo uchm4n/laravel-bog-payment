@@ -2,38 +2,47 @@
 
 namespace RedberryProducts\LaravelBogPayment\Http\Controllers;
 
-use HttpException;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use RedberryProducts\LaravelBogPayment\Events\TransactionStatusUpdated;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class StatusCallbackController extends Controller
 {
+    /**
+     * @throws HttpException
+     */
     public function __invoke(Request $request)
     {
         $requestBody = $request->getContent();
+
+        $request->validate([
+            'body' => 'required|array'
+        ]);
 
         $signature = $request->header('Callback-Signature');
         $publicKey = config('bog-payment.public_key');
 
         $this->ensureSignatureIsValid($requestBody, $signature, $publicKey);
 
-        event(TransactionStatusUpdated::class, [json_decode($requestBody, true)['body']]);
+        event(new TransactionStatusUpdated($request->get('body')));
 
-        return json_decode($requestBody, true)['body'];
+        return $request->get('body');
     }
 
     /**
      * Verifies the signature using the provided public key.
      *
      * @param  string  $data  The data to verify.
-     * @param  string  $signature  The provided signature.
-     * @param  string  $publicKey  The public key to use for verification.
+     * @param  string|null  $signature  The provided signature.
+     * @param  string|null  $publicKey  The public key to use for verification.
+     *
+     * @return bool
      */
-    private function verifySignature(string $data, string $signature, string $publicKey): bool
+    private function verifySignature(string $data, string|null $signature, string|null $publicKey): bool
     {
-        // Decode the signature from base64
         $decodedSignature = base64_decode($signature);
+
         $publicKey = openssl_pkey_get_public($publicKey);
         $verified = openssl_verify($data, $decodedSignature, $publicKey, 'RSA-SHA256');
 
@@ -45,9 +54,8 @@ class StatusCallbackController extends Controller
      */
     private function ensureSignatureIsValid($body, $signature, $publicKey)
     {
-        if (! $this->verifySignature($body, $signature, $publicKey)) {
-            throw new HttpException('Invalid Signature', 401);
+        if (!$this->verifySignature($body, $signature, $publicKey)) {
+            throw new HttpException(401, 'Invalid Signature');
         }
-
     }
 }
