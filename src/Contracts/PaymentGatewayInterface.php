@@ -1,6 +1,6 @@
 <?php
 
-namespace Jorjika\BogPayment\Contracts;
+namespace RedberryProducts\LaravelBogPayment\Contracts;
 
 interface PaymentGatewayInterface
 {

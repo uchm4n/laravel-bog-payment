@@ -1,6 +1,6 @@
 <?php
 
-namespace Jorjika\BogPayment;
+namespace RedberryProducts\LaravelBogPayment;
 
 use Exception;
 use Illuminate\Http\Client\RequestException;

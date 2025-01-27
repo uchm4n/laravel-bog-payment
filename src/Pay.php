@@ -1,8 +1,8 @@
 <?php
 
-namespace Jorjika\BogPayment;
+namespace RedberryProducts\LaravelBogPayment;
 
-use Jorjika\BogPayment\Contracts\PayContract;
+use RedberryProducts\LaravelBogPayment\Contracts\PayContract;
 
 class Pay extends Payment implements PayContract
 {

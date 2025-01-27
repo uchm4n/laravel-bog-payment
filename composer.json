@@ -36,13 +36,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Jorjika\\BogPayment\\": "src/",
-            "Jorjika\\BogPayment\\Database\\Factories\\": "database/factories/"
+            "RedberryProducts\\LaravelBogPayment\\": "src/",
+            "RedberryProducts\\LaravelBogPayment\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Jorjika\\BogPayment\\Tests\\": "tests/",
+            "RedberryProducts\\LaravelBogPayment\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -74,10 +74,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Jorjika\\BogPayment\\BogPaymentServiceProvider"
+                "RedberryProducts\\LaravelBogPayment\\BogPaymentServiceProvider"
             ],
             "aliases": {
-                "BogPayment": "Jorjika\\BogPayment\\Facades\\BogPayment"
+                "BogPayment": "RedberryProducts\\LaravelBogPayment\\Facades\\BogPayment"
             }
         }
     },

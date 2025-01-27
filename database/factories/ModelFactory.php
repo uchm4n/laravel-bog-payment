@@ -1,6 +1,6 @@
 <?php
 
-namespace Jorjika\BogPayment\Database\Factories;
+namespace RedberryProducts\LaravelBogPayment\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
