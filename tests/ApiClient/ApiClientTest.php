@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Http;
-use Jorjika\BogPayment\ApiClient;
+use RedberryProducts\LaravelBogPayment\ApiClient;
 
 beforeEach(function () {
     $this->apiClient = new ApiClient;

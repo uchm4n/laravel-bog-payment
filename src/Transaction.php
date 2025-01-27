@@ -1,8 +1,8 @@
 <?php
 
-namespace Jorjika\BogPayment;
+namespace RedberryProducts\LaravelBogPayment;
 
-use Jorjika\BogPayment\Contracts\TransactionContract;
+use RedberryProducts\LaravelBogPayment\Contracts\TransactionContract;
 
 class Transaction implements TransactionContract
 {

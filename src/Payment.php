@@ -1,8 +1,8 @@
 <?php
 
-namespace Jorjika\BogPayment;
+namespace RedberryProducts\LaravelBogPayment;
 
-use Jorjika\BogPayment\Traits\BuildsPayment;
+use RedberryProducts\LaravelBogPayment\Traits\BuildsPayment;
 
 class Payment
 {

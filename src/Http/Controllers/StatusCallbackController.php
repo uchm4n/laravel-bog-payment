@@ -1,11 +1,11 @@
 <?php
 
-namespace Jorjika\BogPayment\Http\Controllers;
+namespace RedberryProducts\LaravelBogPayment\Http\Controllers;
 
 use HttpException;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Nikajorjika\BogPayment\Events\TransactionStatusUpdated;
+use RedberryProducts\LaravelBogPayment\Events\TransactionStatusUpdated;
 
 class StatusCallbackController extends Controller
 {

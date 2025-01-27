@@ -1,5 +1,5 @@
 <?php
 
-namespace Jorjika\BogPayment;
+namespace RedberryProducts\LaravelBogPayment;
 
 class BogPayment {}

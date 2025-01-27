@@ -1,6 +1,6 @@
 <?php
 
-namespace Jorjika\BogPayment\Traits;
+namespace RedberryProducts\LaravelBogPayment\Traits;
 
 use RuntimeException;
 

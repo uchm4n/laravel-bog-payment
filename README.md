@@ -21,7 +21,7 @@ You can find a demo project [here](https://github.com/nikajorjika/bog-payment-de
 You can install the package via composer:
 
 ```bash
-composer require nikajorjika/bog-payment
+composer require redberryproducts/laravel-bog-payment
 ```
 
 You can publish the config file with:
@@ -54,7 +54,7 @@ You can also configure additional environment variables as needed. But this is t
 To initiate a payment, use the `Pay` facade to set the order details and process the transaction:
 
 ```php
-use Jorjika\BogPayment\Facades\Pay;
+use RedberryProducts\LaravelBogPayment\Facades\Pay;
 use App\Models\Transaction;
 
 // Step 1: Create a transaction record
@@ -95,7 +95,7 @@ To save the card during the payment process, you can use the `saveCard()` method
 When you want to save card during the payment, you need to do the following:
 
 ```php
-use Jorjika\BogPayment\Facades\Pay;
+use RedberryProducts\LaravelBogPayment\Facades\Pay;
 
 // SaveCard method will initiate another request that notifies bank to save card details
 $response = Pay::orderId($external_order_id)->amount($amount)->saveCard()->process();
@@ -113,7 +113,7 @@ When you receive the response, you can save the card details in your database, w
 Once you have saved new payment method id in your database, you can initiate payments on saved cards like so:
 
 ```php
-use Jorjika\BogPayment\Facades\Card;
+use RedberryProducts\LaravelBogPayment\Facades\Card;
 
 $response = Card::orderId($external_order_id)->amount($amount)->charge("test-id");
 
@@ -160,7 +160,7 @@ You can set the buyer details for the payment by using the `setBuyer()` method. 
 here's the example of how you can set the buyer details:
 
 ```php
-use Jorjika\BogPayment\Facades\Pay;
+use RedberryProducts\LaravelBogPayment\Facades\Pay;
 
 $buyer = [
     'full_name' => 'John Doe',
@@ -188,7 +188,7 @@ $paymentDetails = Pay::orderId($transaction->id)
 
 ## Callback Handling
 
-The package handles callback behavior automatically. When a payment is processed, it will send a POST request to your callback URL with the payment details. The package then verifies the request's signature to ensure its authenticity and fires the Nikajorjika\BogPayment\Events\TransactionStatusUpdated event, which contains all relevant payment details.
+The package handles callback behavior automatically. When a payment is processed, it will send a POST request to your callback URL with the payment details. The package then verifies the request's signature to ensure its authenticity and fires the RedberryProducts\LaravelBogPayment\Events\TransactionStatusUpdated event, which contains all relevant payment details.
 
 To utilize this functionality, register an event listener in your application to capture and respond to the transaction status updates as needed.
 
@@ -198,7 +198,7 @@ Add the following code to your event listener:
 ```php
 namespace App\Listeners;
 
-use Nikajorjika\BogPayment\Events\TransactionStatusUpdated;
+use RedberryProducts\LaravelBogPayment\Events\TransactionStatusUpdated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -209,7 +209,7 @@ use InteractsWithQueue;
     /**
      * Handle the event.
      *
-     * @param  \Nikajorjika\BogPayment\Events\TransactionStatusUpdated  $event
+     * @param  RedberryProducts\LaravelBogPayment\\Events\TransactionStatusUpdated  $event
      * @return void
      */
     public function handle(array $event)
@@ -224,7 +224,7 @@ To handle transaction status updates efficiently, you need to register an event 
 1. Generating the Listener Automatically
    You can generate the event listener using the Artisan command:
     ```bash
-    php artisan make:listener HandleTransactionStatusUpdate --event=\Nikajorjika\BogPayment\Events\TransactionStatusUpdated
+    php artisan make:listener HandleTransactionStatusUpdate --event=RedberryProducts\LaravelBogPayment\\Events\TransactionStatusUpdated
     ```
     This command will create a listener class at `app/Listeners/HandleTransactionStatusUpdate.php`, which you can customize to handle the event logic.
 
@@ -240,7 +240,7 @@ The package provides a convenient way to retrieve the status of a transaction us
 Here's how you can use it:
 
 ```php
-use Jorjika\BogPayment\Facades\Transaction;
+use RedberryProducts\LaravelBogPayment\Facades\Transaction;
 
 $transactionDetails = Transaction::get($order_id); // Returns array of transaction details
 ```

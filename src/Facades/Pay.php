@@ -1,16 +1,16 @@
 <?php
 
-namespace Jorjika\BogPayment\Facades;
+namespace RedberryProducts\LaravelBogPayment\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Jorjika\BogPayment\BogPayment
+ * @see \RedberryProducts\LaravelBogPayment\BogPayment
  */
 class Pay extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return \Jorjika\BogPayment\Pay::class;
+        return \RedberryProducts\LaravelBogPayment\Pay::class;
     }
 }

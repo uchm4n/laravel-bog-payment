@@ -1,6 +1,6 @@
 <?php
 
-namespace Jorjika\BogPayment\Commands;
+namespace RedberryProducts\LaravelBogPayment\Commands;
 
 use Illuminate\Console\Command;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Jorjika\BogPayment;
+namespace RedberryProducts\LaravelBogPayment;
 
-use Jorjika\BogPayment\Commands\BogPaymentCommand;
+use RedberryProducts\LaravelBogPayment\Commands\BogPaymentCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
