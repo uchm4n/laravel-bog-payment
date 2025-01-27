@@ -3,10 +3,10 @@
 The BOG Payment package provides seamless integration with the Bank of Georgia's payment gateway, enabling Laravel applications to process payments efficiently.
 
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/redberryproducts/laravel-version.svg?style=flat-square)](https://packagist.org/packages/redberryproducts/laravel-version)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/redberryproducts/laravel-version/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/redberryproducts/laravel-version/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/redberryproducts/laravel-version/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/redberryproducts/laravel-version/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/redberryproducts/laravel-version.svg?style=flat-square)](https://packagist.org/packages/redberryproducts/laravel-version)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/redberryproducts/laravel-bog-payment.svg?style=flat-square)](https://packagist.org/packages/redberryproducts/laravel-bog-payment)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/redberryproducts/laravel-bog-payment/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/redberryproducts/laravel-bog-payment/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/redberryproducts/laravel-bog-payment/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/redberryproducts/laravel-bog-payment/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/redberryproducts/laravel-bog-payment.svg?style=flat-square)](https://packagist.org/packages/redberryproducts/laravel-bog-payment)
 
 ### Demo
 You can find a demo project [here](https://github.com/nikajorjika/bog-payment-demo)
