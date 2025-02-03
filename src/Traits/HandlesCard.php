@@ -3,10 +3,11 @@
 namespace RedberryProducts\LaravelBogPayment\Traits;
 
 use Exception;
+use RedberryProducts\LaravelBogPayment\DTO\PaymentResponseData;
 
 trait HandlesCard
 {
-    public function saveCard(): array
+    public function saveCard(): PaymentResponseData
     {
         $response = $this->apiClient->post('/ecommerce/orders', $this->payload);
 
@@ -14,19 +15,19 @@ trait HandlesCard
 
         $this->resetPayload();
 
-        return [
-            'id' => $response['id'],
-            'redirect_url' => $response['_links']['redirect']['href'],
-            'details_url' => $response['_links']['details']['href'],
-        ];
+        return new PaymentResponseData(
+            id: $response['id'],
+            redirect_url: $response['_links']['redirect']['href'],
+            details_url: $response['_links']['details']['href'],
+        );
     }
 
     /**
      * @throws Exception
      */
-    public function chargeCard($parentTransactionId): array
+    public function chargeCard($parentTransactionId): PaymentResponseData
     {
-        if (! $parentTransactionId) {
+        if (!$parentTransactionId) {
             throw new Exception('Payment method id is required');
         }
 
@@ -34,10 +35,11 @@ trait HandlesCard
 
         $this->resetPayload();
 
-        return [
-            'id' => $response['id'],
-            'details_url' => $response['_links']['details']['href'],
-        ];
+        return new PaymentResponseData(
+            id: $response['id'],
+            redirect_url: $response['_links']['redirect']['href'],
+            details_url: $response['_links']['details']['href'],
+        );
     }
 
     public function deleteCard(mixed $id): void
