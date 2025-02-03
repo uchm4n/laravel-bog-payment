@@ -7,6 +7,7 @@ class ArrayableDummy implements \ArrayAccess
     use Arrayable;
 
     public $name;
+
     public $age;
 
     public function __construct($name = 'John Doe', $age = 30)
@@ -17,14 +18,14 @@ class ArrayableDummy implements \ArrayAccess
 }
 
 it('can check if an offset exists', function () {
-    $object = new ArrayableDummy();
+    $object = new ArrayableDummy;
 
     expect(isset($object['name']))->toBeTrue();
     expect(isset($object['non_existing']))->toBeFalse();
 });
 
 it('can get and set offset values', function () {
-    $object = new ArrayableDummy();
+    $object = new ArrayableDummy;
 
     // Get values
     expect($object['name'])->toBe('John Doe');
@@ -39,7 +40,7 @@ it('can get and set offset values', function () {
 });
 
 it('can unset an offset', function () {
-    $object = new ArrayableDummy();
+    $object = new ArrayableDummy;
 
     unset($object['name']);
 
@@ -51,6 +52,6 @@ it('can convert object to array', function () {
 
     expect($object->toArray())->toBe([
         'name' => 'Alice',
-        'age' => 28
+        'age' => 28,
     ]);
 });

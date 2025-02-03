@@ -19,7 +19,7 @@ class Pay extends Payment implements PayContract
         return new PaymentResponseData(
             id: $response['id'],
             redirect_url: $response['_links']['redirect']['href'],
-           details_url:  $response['_links']['details']['href']
+            details_url: $response['_links']['details']['href']
         );
     }
 }
