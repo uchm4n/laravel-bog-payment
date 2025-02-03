@@ -3,8 +3,8 @@
 namespace RedberryProducts\LaravelBogPayment\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use RedberryProducts\LaravelBogPayment\BogPaymentServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use RedberryProducts\LaravelBogPayment\BogPaymentServiceProvider;
 
 class TestCase extends Orchestra
 {

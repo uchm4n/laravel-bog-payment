@@ -17,7 +17,7 @@ class StatusCallbackController extends Controller
         $requestBody = $request->getContent();
 
         $request->validate([
-            'body' => 'required|array'
+            'body' => 'required|array',
         ]);
 
         $signature = $request->header('Callback-Signature');
@@ -36,10 +36,8 @@ class StatusCallbackController extends Controller
      * @param  string  $data  The data to verify.
      * @param  string|null  $signature  The provided signature.
      * @param  string|null  $publicKey  The public key to use for verification.
-     *
-     * @return bool
      */
-    private function verifySignature(string $data, string|null $signature, string|null $publicKey): bool
+    private function verifySignature(string $data, ?string $signature, ?string $publicKey): bool
     {
         $decodedSignature = base64_decode($signature);
 
@@ -54,7 +52,7 @@ class StatusCallbackController extends Controller
      */
     private function ensureSignatureIsValid($body, $signature, $publicKey)
     {
-        if (!$this->verifySignature($body, $signature, $publicKey)) {
+        if (! $this->verifySignature($body, $signature, $publicKey)) {
             throw new HttpException(401, 'Invalid Signature');
         }
     }

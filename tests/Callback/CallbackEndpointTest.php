@@ -1,9 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Event;
 use RedberryProducts\LaravelBogPayment\Events\TransactionStatusUpdated;
-
 
 function generateRSAKeyPair(): array
 {
@@ -26,6 +25,7 @@ function generateRSAKeyPair(): array
 function generateValidSignature(string $data, string $privateKey)
 {
     openssl_sign($data, $signature, $privateKey, OPENSSL_ALGO_SHA256);
+
     return base64_encode($signature);
 }
 
