@@ -87,8 +87,9 @@ $paymentDetails = [
     'details_url' => 'https://example.com/details',
 ]
 ```
+## Save Card
 
-### Save Card During Payment
+### Save card during payment
 
 To save the card during the payment process, you can use the `saveCard()` method. This method will save the card details for future transactions.
 
@@ -98,7 +99,11 @@ When you want to save card during the payment, you need to do the following:
 use RedberryProducts\LaravelBogPayment\Facades\Pay;
 
 // SaveCard method will initiate another request that notifies bank to save card details
-$response = Pay::orderId($external_order_id)->amount($amount)->saveCard()->process();
+$response = Pay::orderId($external_order_id)
+    ->redirectUrl(route('bog.v1.transaction.status', ['transaction_id' => $transaction->id]))
+    ->amount($amount)
+    ->saveCard()
+    ->process();
 
 // Example response
 $response = [
@@ -109,13 +114,15 @@ $response = [
 ```
 When you receive the response, you can save the card details in your database, where `id` is the saved card(parent transaction) id that you would use for later transactions.
 
-### Payment with Saved Card
+### Pay using saved card
 Once you have saved new payment method id in your database, you can initiate payments on saved cards like so:
 
 ```php
 use RedberryProducts\LaravelBogPayment\Facades\Card;
 
-$response = Card::orderId($external_order_id)->amount($amount)->charge("test-id");
+$response = Pay::orderId($external_order_id)
+    ->amount($amount)
+    ->chargeCard("test-id");
 
 // Example response
 $response = [
@@ -126,6 +133,27 @@ $response = [
 ```
 Functionality above will charge saved card without the user interaction.
 
+## Subscriptions
+To register a subscription payment, you can use the `Pay` facade to set the order details and process the transaction:
+
+```php
+use RedberryProducts\LaravelBogPayment\Facades\Pay;
+
+// SaveCard method will initiate another request that notifies bank to save card details
+$response = Pay::orderId($external_order_id)
+    ->redirectUrl(route('bog.v1.transaction.status', ['transaction_id' => $transaction->id]))
+    ->amount($amount)
+    ->subscribe();
+
+// Save the parent transaction id in your database
+$parentTransactionId = $response['id']; 
+
+// Charge saved subscription at any time that you need
+$response = Pay::orderId($external_order_id)
+    ->chargeSubscription($parentTransactionId);
+```
+
+This will charge the saved subscription without the user interaction.
 
 ## Building the payload
 
